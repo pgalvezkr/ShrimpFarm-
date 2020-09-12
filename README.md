@@ -1,2 +1,2 @@
 # ShrimpFarm-
-This is a MEAN app for managment shrimp farms.
+This is an app for managment shrimp farms.
