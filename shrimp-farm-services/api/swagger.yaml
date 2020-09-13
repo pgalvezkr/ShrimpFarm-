@@ -1,0 +1,470 @@
+---
+swagger: "2.0"
+info:
+  description: "Service Contract"
+  version: "1.0.0"
+  title: "Shrimp Farm Application"
+  contact:
+    email: "patti_gm2010@live.com"
+host: "localhost:9000"
+basePath: "/sfarm/v1"
+schemes:
+- "http"
+paths:
+  /farm:
+    get:
+      tags:
+      - "Farm"
+      summary: "Delete a farm from database"
+      operationId: "getFarms"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "Succesful transaction"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "201":
+          description: "Record created"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: "Bad request"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "404":
+          description: "Records not found"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "500":
+          description: "Internal error on server"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+      x-swagger-router-controller: "Farm"
+    post:
+      tags:
+      - "Farm"
+      summary: "Management of farms"
+      operationId: "createFarm"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/Farm"
+      responses:
+        "200":
+          description: "Succesful transaction"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "201":
+          description: "Record created"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: "Bad request"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "404":
+          description: "Records not found"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "500":
+          description: "Internal error on server"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+      x-swagger-router-controller: "Farm"
+    put:
+      tags:
+      - "Farm"
+      summary: "Update the fields of farm"
+      operationId: "updateFarm"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/Farm"
+      responses:
+        "200":
+          description: "Succesful transaction"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "201":
+          description: "Record created"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: "Bad request"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "404":
+          description: "Records not found"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "500":
+          description: "Internal error on server"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+      x-swagger-router-controller: "Farm"
+    delete:
+      tags:
+      - "Farm"
+      summary: "Delete a farm from database"
+      operationId: "deleteFarm"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Farm"
+      responses:
+        "200":
+          description: "Succesful transaction"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "201":
+          description: "Record created"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: "Bad request"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "404":
+          description: "Records not found"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "500":
+          description: "Internal error on server"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+      x-swagger-router-controller: "Farm"
+  /farm/getFarmById/{farmId}:
+    get:
+      tags:
+      - "Farm"
+      summary: "Find farm by id"
+      operationId: "getFarmById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "farmId"
+        in: "path"
+        description: "Farm´s id"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Succesful transaction"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "201":
+          description: "Record created"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: "Bad request"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "404":
+          description: "Records not found"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "500":
+          description: "Internal error on server"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+      x-swagger-router-controller: "Farm"
+  /farm/getTotalSize/{farmId}:
+    get:
+      tags:
+      - "Farm"
+      summary: "Get total size of Farm"
+      operationId: "getTotalSize"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "farmId"
+        in: "path"
+        description: "Farm´s id"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Succesful transaction"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "201":
+          description: "Record created"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: "Bad request"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "404":
+          description: "Records not found"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "500":
+          description: "Internal error on server"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+      x-swagger-router-controller: "Farm"
+  /pond:
+    post:
+      tags:
+      - "Pond"
+      summary: "Management of ponds"
+      operationId: "createPond"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/Pond"
+      responses:
+        "200":
+          description: "Succesful transaction"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "201":
+          description: "Record created"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: "Bad request"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "404":
+          description: "Records not found"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "500":
+          description: "Internal error on server"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+      x-swagger-router-controller: "Pond"
+    put:
+      tags:
+      - "Pond"
+      summary: "Update the fields of pond"
+      operationId: "updatePond"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/Pond"
+      responses:
+        "200":
+          description: "Succesful transaction"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "201":
+          description: "Record created"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: "Bad request"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "404":
+          description: "Records not found"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "500":
+          description: "Internal error on server"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+      x-swagger-router-controller: "Pond"
+    delete:
+      tags:
+      - "Pond"
+      summary: "Delete a pond from database"
+      operationId: "deletePond"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Pond"
+      responses:
+        "200":
+          description: "Succesful transaction"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "201":
+          description: "Record created"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: "Bad request"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "404":
+          description: "Records not found"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "500":
+          description: "Internal error on server"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+      x-swagger-router-controller: "Pond"
+  /pond/getPondById/{pondId}:
+    get:
+      tags:
+      - "Pond"
+      summary: "Find farm by id"
+      operationId: "getPondById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "pondId"
+        in: "path"
+        description: "Pond´s id"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Succesful transaction"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "201":
+          description: "Record created"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: "Bad request"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "404":
+          description: "Records not found"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "500":
+          description: "Internal error on server"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+      x-swagger-router-controller: "Pond"
+  /pond/getPondByFarmId/{farmId}:
+    get:
+      tags:
+      - "Pond"
+      summary: "Find pond by farmid"
+      operationId: "getPondByFarmid"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "farmId"
+        in: "path"
+        description: "Farm´s id"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Succesful transaction"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "201":
+          description: "Record created"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: "Bad request"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "404":
+          description: "Records not found"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "500":
+          description: "Internal error on server"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+      x-swagger-router-controller: "Pond"
+definitions:
+  ApiResponse:
+    type: "object"
+    properties:
+      data:
+        type: "object"
+        properties: {}
+      message:
+        type: "string"
+      code:
+        type: "integer"
+    example:
+      code: 0
+      data: "{}"
+      message: "message"
+  Farm:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      totalSize:
+        type: "number"
+      nameLocation:
+        type: "string"
+      latitude:
+        type: "number"
+      longitude:
+        type: "number"
+      idPonds:
+        type: "array"
+        items:
+          type: "string"
+    example:
+      totalSize: 0.80082819046101150206595775671303272247314453125
+      latitude: 6.02745618307040320615897144307382404804229736328125
+      name: "name"
+      id: "id"
+      nameLocation: "nameLocation"
+      idPonds:
+      - "idPonds"
+      - "idPonds"
+      longitude: 1.46581298050294517310021547018550336360931396484375
+  Pond:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      size:
+        type: "number"
+    example:
+      size: 0.80082819046101150206595775671303272247314453125
+      name: "name"
+      id: "id"
