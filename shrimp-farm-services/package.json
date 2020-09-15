@@ -1,0 +1,21 @@
+{
+  "name": "shrimp-farm-services",
+  "version": "1.0.0",
+  "description": "Service Contract",
+  "main": "index.js",
+  "scripts": {
+	"prestart": "npm install",
+	"start": "node index.js"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "connect": "^3.2.0",
+    "js-yaml": "^3.3.0",
+    "express": "^4.17.1",
+    "swagger-tools": "0.10.1"
+  }
+}
