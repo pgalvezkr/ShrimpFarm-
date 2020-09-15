@@ -1,1 +1,31 @@
-<p>farm-form works!</p>
+<div class="card">
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <button pButton label="Return" icon="pi pi-arrow-left" class="p-button-info" (click)="goBack()"></button>
+        </ng-template>
+        <ng-template pTemplate="right">
+            <button pButton label="Save" icon="pi pi-save" class="p-button-success p-mr-2" ></button>
+            <button pButton label="Cancel" icon="pi pi-times" class="p-button-danger" ></button>
+        </ng-template>
+    </p-toolbar>
+    <div class="p-fluid">
+        <div class="p-field p-grid">
+            <label for="name" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">Name *</label>
+            <div class="p-col-12 p-md-8">
+                <input id="name" type="text" pInputText> 
+            </div>
+        </div>
+        <div class="p-field p-grid">
+            <label for="location" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">Location</label>
+            <div class="p-col-12 p-md-8">
+                <input id="location" type="text" pInputText> 
+            </div>
+        </div>
+        <div class="p-field p-grid">
+            <label for="totalSize" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">Total size</label>
+            <div class="p-col-12 p-md-8">
+                <input id="totalSize" type="text" pInputText> 
+            </div>
+        </div>
+    </div>
+</div>

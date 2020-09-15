@@ -1,0 +1,6 @@
+<p-toast position="top-left" key="messages"></p-toast>
+
+<app-farm-list *ngIf="showFarmList" (sendFarm)="getForm($event)"></app-farm-list>
+
+<app-farm-form *ngIf="showFarmForm" [isNewFarm]="isNewFarm" [selectedFarm]="selectedFarm" 
+                (sendList)="getList($event)"></app-farm-form>

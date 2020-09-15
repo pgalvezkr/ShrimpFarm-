@@ -1,1 +1,58 @@
-<p>farm-list works!</p>
+<p-toast></p-toast>
+
+<div class="card">
+    
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="right">
+            <button pButton label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="createNewFarm()"></button>
+            <button pButton label="Delete" icon="pi pi-trash" class="p-button-danger"  *ngIf="selectedFarms.length" (click)="deleteSelectedFarms()"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #farmTable [value]="farms"  [rows]="10" [paginator]="true" [globalFilterFields]="['name','nameLocation','totalSize']"
+            [(selection)]="selectedFarms" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
+            [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="farmTable.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th>Number</th>
+                <th>Name</th>
+                <th>location</th>
+                <th>Total Size</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-farm>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="farm"></p-tableCheckbox>
+                </td>
+                <td>{{farm.id}}</td>
+                <td>{{farm.name}}</td>
+                <td>{{farm.nameLocation}}</td>
+                <td>{{farm.totalSize}}</td>
+                <td>
+                    <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editFarm(farm)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-dialog header="Confirmation" [(visible)]="displayDelete">
+        Are you sure you want to delete the selected farms?
+        <p-footer>
+            <button pButton label="Yes" icon="pi pi-check" class="p-button-secondary"></button>
+            <button pButton label="No" icon="pi pi-times" class="p-button-secondary"></button>
+        </p-footer>
+    </p-dialog>
+</div>
+
