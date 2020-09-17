@@ -1,3 +1,5 @@
+<p-toast position="top-right" key="msgs"></p-toast>
+
 <div class="card">
     <form #form="ngForm" (ngSubmit)="form.valid && saveFarm()" novalidate>
         <p-toolbar styleClass="p-mb-4">
@@ -33,7 +35,7 @@
                 </div>
             </div>
             <div class="p-field p-grid">
-                <label for="totalSize" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">Total size</label>
+                <label for="totalSize" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">Total size (has.)</label>
                 <div class="p-col-12 p-md-8">
                     <input id="totalSize" type="number" pInputText [(ngModel)]="farm.totalSize"
                     name="totalSizeFarm" #totalSizeFarm=ngModel [disabled]="true"> 
@@ -42,6 +44,6 @@
         </div>
     </form>
     <p-panel header="Ponds">
-        <app-pond [ponds]= "farm.ponds"></app-pond>
+        <app-pond [ponds]= "farm.ponds" (sendList)="getList($event)"></app-pond>
     </p-panel>
 </div>

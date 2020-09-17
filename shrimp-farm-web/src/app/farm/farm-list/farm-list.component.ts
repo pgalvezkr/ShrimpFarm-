@@ -52,5 +52,29 @@ export class FarmListComponent implements OnInit {
     console.log("ESTA EN EL ELIMINAR FARMS");
     this.displayDelete = true;
   }
+  
+  cancelAction (){
+    this.displayDelete = false;
+  }
+
+  deleteFarms() {
+      this.selectedFarms.forEach(farm =>{
+        let farmDeleted = farm;
+        this.farmsService.deleteFarm(farmDeleted).subscribe((resp: ApiResponse)=>{
+          if (resp.code == 200) {
+            this.messageService.add({key: 'msgsList', sticky: true, severity:'success', summary:'Info', detail: resp.message});
+            this.displayDelete = false;
+        } else {
+          this.messageService.add({key: 'msgsList', sticky: true, severity:'error', summary:'Error', detail: "Error ocurred and the farms was not deleted"});
+          this.displayDelete = false;
+        }
+        }, error=>{
+          this.messageService.add({key: 'msgsList', sticky: true, severity:'error', summary:'Error', detail: "Error ocurred on server"});
+          this.displayDelete = false;
+        });   
+
+      })
+      
+  }
 
 }

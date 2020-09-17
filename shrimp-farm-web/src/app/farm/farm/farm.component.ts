@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Farm } from 'src/api';
+import { Messages } from 'primeng/messages';
 
 @Component({
   selector: 'app-farm',
@@ -14,6 +15,7 @@ export class FarmComponent implements OnInit {
   public showFarmForm: boolean = true;
   public selectedFarm: Farm;
   public isNewFarm: boolean;
+  public msgs: Messages;
 
   public getForm(event) {
     console.log("ESTA EN EL GET FORM");
@@ -28,6 +30,10 @@ export class FarmComponent implements OnInit {
     this.showFarmList = event.showList;
     this.showFarmForm = event.showForm;   
 
+  }
+
+  public getMessages (event){
+    this.msgs = event.msgs;
   }
 
   ngOnInit(): void {

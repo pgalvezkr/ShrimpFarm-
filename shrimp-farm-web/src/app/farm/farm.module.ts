@@ -16,6 +16,8 @@ import { FarmComponent } from './farm/farm.component';
 import { FormsModule } from '@angular/forms';
 import { PondModule } from '../pond/pond.module';
 import { APIS, BASE_PATH } from 'src/api';
+import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
 
 @NgModule({
   declarations: [FarmListComponent, FarmFormComponent, FarmComponent],
@@ -26,13 +28,13 @@ import { APIS, BASE_PATH } from 'src/api';
     PanelModule,
     TableModule,
     ToolbarModule,
-    ToastModule,
     ButtonModule,
     InputTextModule,
     DialogModule,
-    PondModule
+    PondModule,
+    ToastModule
   ],
-  providers: [MessageService, ConfirmationService, APIS,  {provide:BASE_PATH, useValue:'/sfarm/v1'}]
+  providers: [MessageService, ConfirmationService, APIS,  {provide:BASE_PATH, useValue:'/sfarm/v1'}, MessageService]
 
 })
 export class FarmModule { }
