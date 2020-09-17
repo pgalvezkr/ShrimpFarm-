@@ -10,6 +10,8 @@
  * Do not edit the class manually.
  */
 
+import { Pond } from './pond';
+
 
 export interface Farm { 
     id?: string;
@@ -18,5 +20,5 @@ export interface Farm {
     nameLocation?: string;
     latitude?: number;
     longitude?: number;
-    idPonds?: Array<string>;
+    ponds?: Array<Pond>;
 }

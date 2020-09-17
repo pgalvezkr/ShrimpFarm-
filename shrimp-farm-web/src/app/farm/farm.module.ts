@@ -13,11 +13,14 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import {InputTextModule} from 'primeng/inputtext';
 import {DialogModule} from 'primeng/dialog';
 import { FarmComponent } from './farm/farm.component';
+import { FormsModule } from '@angular/forms';
+import { PondModule } from '../pond/pond.module';
 
 @NgModule({
   declarations: [FarmListComponent, FarmFormComponent, FarmComponent],
   imports: [
     CommonModule,
+    FormsModule,
     FarmRoutingModule,
     PanelModule,
     TableModule,
@@ -25,7 +28,8 @@ import { FarmComponent } from './farm/farm.component';
     ToastModule,
     ButtonModule,
     InputTextModule,
-    DialogModule
+    DialogModule,
+    PondModule
   ],
   providers: [MessageService, ConfirmationService]
 })
