@@ -1,0 +1,78 @@
+<div class="card">
+    <p-messages [(value)]="msgs"></p-messages>
+
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <button pButton label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew(null)"></button>
+        </ng-template>
+    </p-toolbar>
+    <p-table #pondTable [value]="ponds"  [rows]="3" [paginator]="true" [globalFilterFields]="['name','size']"
+            [(selection)]="selectedPonds" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
+            [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="pondTable.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Size</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-pond>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="pond"></p-tableCheckbox>
+                </td>
+                <td>{{pond.id}}</td>
+                <td>{{pond.name}}</td>
+                <td>{{pond.size}}</td>
+                <td>
+                    <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="openNew(pond)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="pondDialog" [style]="{width: '450px'}" header="Pond Detail" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="p-fluid">
+            <div class="p-field p-grid">
+                <label for="inName" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">Name *</label>
+                <div class="p-col-12 p-md-8">
+                    <input id="inName" type="text" pInputText required [(ngModel)]="pond.name"
+                    name="namePond" required #namePond=ngModel placeholder="Pond's name"
+                    maxlength="150"> 
+                </div>
+                <div class="p-col-2"
+                        *ngIf="namePond.errors && (namePond.dirty || namePond.touched)">
+                    <div [hidden]="!namePond.errors.required" style="color:red;">
+                        Name is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-field p-grid">
+                <label for="inSize" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">Size</label>
+                <div class="p-col-12 p-md-8">
+                    <p-inputNumber id="size" [(ngModel)]="pond.size" suffix=" has."></p-inputNumber>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="savePond()"></button>
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    </ng-template>
+</p-dialog>
