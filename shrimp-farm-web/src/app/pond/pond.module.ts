@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { PondRoutingModule } from './pond-routing.module';
 import { PondComponent } from './pond/pond.component';
-import { PondListComponent } from './pond-list/pond-list.component';
-import { PondFormComponent } from './pond-form/pond-form.component';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
@@ -16,7 +14,7 @@ import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 
 @NgModule({
-  declarations: [PondComponent, PondListComponent, PondFormComponent],
+  declarations: [PondComponent],
   imports: [
     CommonModule,
     PondRoutingModule,
@@ -31,6 +29,6 @@ import {MessageModule} from 'primeng/message';
     MessagesModule
 
   ],
-  exports: [PondComponent, PondListComponent, PondFormComponent]
+  exports: [PondComponent]
 })
 export class PondModule { }

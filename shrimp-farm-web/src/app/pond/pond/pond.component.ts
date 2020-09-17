@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Pond } from 'src/api';
 import {Message} from 'primeng/api';
 
@@ -9,7 +9,7 @@ import {Message} from 'primeng/api';
 })
 export class PondComponent implements OnInit {
 
-  ponds: Pond [];
+  @Input() ponds: Pond [];
   pond: Pond;
   pondDialog : boolean;
   submitted: boolean;
@@ -22,7 +22,6 @@ export class PondComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.ponds = [];
     this.msgs = [];
   }
 

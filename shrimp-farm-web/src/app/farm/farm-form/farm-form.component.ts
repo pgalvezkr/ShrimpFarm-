@@ -22,6 +22,7 @@ export class FarmFormComponent implements OnInit {
     }else{
       this.farm = this.selectedFarm;
     }
+    console.log("EL FARM QUE TENGO ES: " , this.farm);
   }
 
   public goBack() {
