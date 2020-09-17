@@ -21,7 +21,7 @@ import { Observable }                                        from 'rxjs';
 import { ApiResponse } from '../model/apiResponse';
 import { Farm } from '../model/farm';
 
-import { BASE_PATH }                     from '../api/variables';
+import { BASE_PATH}                     from '../api/variables';
 import { Configuration }                                     from '../api/configuration';
 
 
@@ -103,7 +103,7 @@ export class FarmService {
             }
         );
     }
-
+    
     /**
      * Delete a farm from database
      * 

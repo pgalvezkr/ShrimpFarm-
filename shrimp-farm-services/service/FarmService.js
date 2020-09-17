@@ -57,6 +57,7 @@ exports.deleteFarm = function(body) {
         "data" : "{}",
         "message" : "message"
       };
+      console.log(body);
       let farm = {
         id: body.id,
         name: body.name,
@@ -66,6 +67,7 @@ exports.deleteFarm = function(body) {
         longitude: body.longitude,
         ponds: body.ponds
       };
+      console.log(farm);
       let deleteFarm = await global.firestoreDb
                 .collection("farms")
                 .doc(farm.id)

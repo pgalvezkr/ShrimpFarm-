@@ -441,10 +441,10 @@ definitions:
         type: "number"
       longitude:
         type: "number"
-      idPonds:
+      ponds:
         type: "array"
         items:
-          type: "string"
+          $ref: "#/definitions/ApiResponse"
     example:
       totalSize: 0.80082819046101150206595775671303272247314453125
       latitude: 6.02745618307040320615897144307382404804229736328125

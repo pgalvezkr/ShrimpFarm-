@@ -1,7 +1,6 @@
-<p-toast></p-toast>
+<p-toast position="top-right" key="msgsList"></p-toast>
 
 <div class="card">
-    
     <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="right">
             <button pButton label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="createNewFarm()"></button>
@@ -25,10 +24,10 @@
                 <th style="width: 3rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th>Number</th>
+                <th>Id</th>
                 <th>Name</th>
                 <th>location</th>
-                <th>Total Size</th>
+                <th>Total Size (has.)</th>
                 <th></th>
             </tr>
         </ng-template>
@@ -50,8 +49,8 @@
     <p-dialog header="Confirmation" [(visible)]="displayDelete">
         Are you sure you want to delete the selected farms?
         <p-footer>
-            <button pButton label="Yes" icon="pi pi-check" class="p-button-secondary"></button>
-            <button pButton label="No" icon="pi pi-times" class="p-button-secondary"></button>
+            <button pButton label="Yes" icon="pi pi-check" class="p-button-secondary" (click)="deleteFarms()"></button>
+            <button pButton label="No" icon="pi pi-times" class="p-button-secondary"(click)="cancelAction()"></button>
         </p-footer>
     </p-dialog>
 </div>
