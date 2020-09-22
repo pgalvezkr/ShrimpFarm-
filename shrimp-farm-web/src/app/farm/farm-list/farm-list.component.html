@@ -1,5 +1,5 @@
-<p-toast></p-toast>
-
+<p-toast position="top-right" key="msgsList"></p-toast>
+<h5 style="margin-left: 50%; font-size: 1.5em;">List of Farms </h5>
 <div class="card">
     
     <p-toolbar styleClass="p-mb-4">
@@ -13,7 +13,7 @@
             [(selection)]="selectedFarms" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
             [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
-            <div class="p-d-flex">
+            <div class="p-d-flex" style="margin-left: 80%;">
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" (input)="farmTable.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />

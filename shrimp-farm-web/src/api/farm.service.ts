@@ -111,11 +111,19 @@ export class FarmService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteFarm(body?: Farm, observe?: 'body', reportProgress?: boolean): Observable<ApiResponse>;
-    public deleteFarm(body?: Farm, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ApiResponse>>;
-    public deleteFarm(body?: Farm, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ApiResponse>>;
-    public deleteFarm(body?: Farm, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public deleteFarm(idFarm: string, observe?: 'body', reportProgress?: boolean): Observable<ApiResponse>;
+    public deleteFarm(idFarm: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ApiResponse>>;
+    public deleteFarm(idFarm: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ApiResponse>>;
+    public deleteFarm(idFarm: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
+        if (idFarm === null || idFarm === undefined) {
+            throw new Error('Required parameter idFarm was null or undefined when calling deleteFarm.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (idFarm !== undefined && idFarm !== null) {
+            queryParameters = queryParameters.set('idFarm', <any>idFarm);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -132,13 +140,10 @@ export class FarmService {
         const consumes: string[] = [
             'application/json'
         ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
 
         return this.httpClient.delete<ApiResponse>(`${this.basePath}/farm`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -146,6 +151,7 @@ export class FarmService {
             }
         );
     }
+
 
     /**
      * Find farm by id

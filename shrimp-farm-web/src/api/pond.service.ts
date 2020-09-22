@@ -60,17 +60,27 @@ export class PondService {
     /**
      * Management of ponds
      * 
+     * @param idFarm Id Farm
      * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createPond(body: Pond, observe?: 'body', reportProgress?: boolean): Observable<ApiResponse>;
-    public createPond(body: Pond, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ApiResponse>>;
-    public createPond(body: Pond, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ApiResponse>>;
-    public createPond(body: Pond, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public createPond(idFarm: string, body: Pond, observe?: 'body', reportProgress?: boolean): Observable<ApiResponse>;
+    public createPond(idFarm: string, body: Pond, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ApiResponse>>;
+    public createPond(idFarm: string, body: Pond, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ApiResponse>>;
+    public createPond(idFarm: string, body: Pond, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (idFarm === null || idFarm === undefined) {
+            throw new Error('Required parameter idFarm was null or undefined when calling createPond.');
+        }
 
         if (body === null || body === undefined) {
             throw new Error('Required parameter body was null or undefined when calling createPond.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (idFarm !== undefined && idFarm !== null) {
+            queryParameters = queryParameters.set('idFarm', <any>idFarm);
         }
 
         let headers = this.defaultHeaders;
@@ -96,6 +106,7 @@ export class PondService {
         return this.httpClient.post<ApiResponse>(`${this.basePath}/pond`,
             body,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -107,15 +118,31 @@ export class PondService {
     /**
      * Delete a pond from database
      * 
+     * @param idFarm Id Farm
      * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deletePond(body?: Pond, observe?: 'body', reportProgress?: boolean): Observable<ApiResponse>;
-    public deletePond(body?: Pond, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ApiResponse>>;
-    public deletePond(body?: Pond, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ApiResponse>>;
-    public deletePond(body?: Pond, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public deletePond(idFarm: string, idPond: string, observe?: 'body', reportProgress?: boolean): Observable<ApiResponse>;
+    public deletePond(idFarm: string, idPond: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ApiResponse>>;
+    public deletePond(idFarm: string, idPond: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ApiResponse>>;
+    public deletePond(idFarm: string, idPond: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
+        if (idFarm === null || idFarm === undefined) {
+            throw new Error('Required parameter idFarm was null or undefined when calling deletePond.');
+        }
+
+        if (idPond === null || idPond === undefined) {
+            throw new Error('Required parameter idPond was null or undefined when calling deletePond.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (idFarm !== undefined && idFarm !== null) {
+            queryParameters = queryParameters.set('idFarm', <any>idFarm);
+        }
+        if (idPond !== undefined && idPond !== null) {
+            queryParameters = queryParameters.set('idPond', <any>idPond);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -132,13 +159,10 @@ export class PondService {
         const consumes: string[] = [
             'application/json'
         ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
 
         return this.httpClient.delete<ApiResponse>(`${this.basePath}/pond`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -146,6 +170,8 @@ export class PondService {
             }
         );
     }
+
+
 
     /**
      * Find pond by farmid
@@ -232,17 +258,27 @@ export class PondService {
     /**
      * Update the fields of pond
      * 
+     * @param idFarm Id Farm
      * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updatePond(body: Pond, observe?: 'body', reportProgress?: boolean): Observable<ApiResponse>;
-    public updatePond(body: Pond, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ApiResponse>>;
-    public updatePond(body: Pond, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ApiResponse>>;
-    public updatePond(body: Pond, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public updatePond(idFarm: string, body: Pond, observe?: 'body', reportProgress?: boolean): Observable<ApiResponse>;
+    public updatePond(idFarm: string, body: Pond, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ApiResponse>>;
+    public updatePond(idFarm: string, body: Pond, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ApiResponse>>;
+    public updatePond(idFarm: string, body: Pond, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (idFarm === null || idFarm === undefined) {
+            throw new Error('Required parameter idFarm was null or undefined when calling updatePond.');
+        }
 
         if (body === null || body === undefined) {
             throw new Error('Required parameter body was null or undefined when calling updatePond.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (idFarm !== undefined && idFarm !== null) {
+            queryParameters = queryParameters.set('idFarm', <any>idFarm);
         }
 
         let headers = this.defaultHeaders;
@@ -268,6 +304,7 @@ export class PondService {
         return this.httpClient.put<ApiResponse>(`${this.basePath}/pond`,
             body,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

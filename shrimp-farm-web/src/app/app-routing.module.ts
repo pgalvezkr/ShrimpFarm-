@@ -6,6 +6,10 @@ const routes: Routes = [
   {
     path: 'farms',
     loadChildren: () => import('./farm/farm.module').then(option => option.FarmModule)
+  },
+  {
+    path: '',
+    loadChildren: () => import('./dashboard/dashboard.module').then(option => option.DashboardModule)
   }
 ];
 

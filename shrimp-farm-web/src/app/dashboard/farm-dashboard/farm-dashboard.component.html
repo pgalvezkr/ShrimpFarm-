@@ -1,0 +1,50 @@
+<p-card> 
+    <ng-template pTemplate="header">
+        <p style="font-size: 2em; text-align: center;">Shrimp Farms</p>
+    </ng-template>
+    <!--BOTONES-->
+        <div class="p-grid">
+            <div class="p-col" >
+                <div class="box p-shadow-4" style="background-color: #a6a6de;">
+                    <div class="p-grid">
+                        <div class="p-col" style="text-align: center;">
+                            <h3>Total Farms </h3>
+                        </div>
+                        <div class="p-col">
+                            <h3>5 </h3>
+                        </div>
+                    </div>                    
+                </div>
+            </div>    
+            <div class="p-col">
+                <div class="box p-shadow-4" style="background-color:#bae44a;">
+                    <div class="p-grid">
+                        <div class="p-col" style="text-align: center;">
+                            <h3>Total Ponds </h3>
+                        </div>
+                        <div class="p-col">
+                            <h3> 20 </h3>
+                        </div>
+                    </div>     
+                </div>               
+            </div>
+            <div class="p-col">
+                <div class="box p-shadow-4" style="background-color: #a6d2de;">
+                <div class="p-grid">
+                    <div class="p-col" style="text-align: center;">
+                        <h3>Total Hectares </h3>
+                    </div>
+                    <div class="p-col">
+                        <h3>250</h3>
+                    </div>
+                </div>
+                </div>                    
+            </div>
+        </div>
+
+    <!--MAP-->
+    <div style="    text-align: center;
+    margin-top: 15%;">
+        <button pButton  type="button" label="List of Farms" class="p-button-raised p-button-info" (click)="goToFarms()"></button>
+    </div>
+</p-card>

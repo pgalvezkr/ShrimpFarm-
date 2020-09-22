@@ -128,11 +128,11 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - in: "body"
-        name: "body"
-        required: false
-        schema:
-          $ref: "#/definitions/Farm"
+      - name: "idFarm"
+        in: "query"
+        required: true
+        type: "string"
+        description: "Id Farm"
       responses:
         "200":
           description: "Succesful transaction"
@@ -238,6 +238,11 @@ paths:
       produces:
       - "application/json"
       parameters:
+      - name: "idFarm"
+        in: "query"
+        required: true
+        type: "string"
+        description: "Id Farm"
       - in: "body"
         name: "body"
         required: true
@@ -275,6 +280,11 @@ paths:
       produces:
       - "application/json"
       parameters:
+      - name: "idFarm"
+        in: "query"
+        required: true
+        type: "string"
+        description: "Id Farm"
       - in: "body"
         name: "body"
         required: true
@@ -312,11 +322,16 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - in: "body"
-        name: "body"
-        required: false
-        schema:
-          $ref: "#/definitions/Pond"
+      - name: "idFarm"
+        in: "query"
+        required: true
+        type: "string"
+        description: "Id Farm"
+      - name: "idPond"
+        in: "query"
+        required: true
+        type: "string"
+        description: "Id Pond"
       responses:
         "200":
           description: "Succesful transaction"
