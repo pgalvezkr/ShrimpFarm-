@@ -1,49 +1,58 @@
 <p-toast position="top-right" key="msgs"></p-toast>
-
-<div class="card">
-    <form #form="ngForm" (ngSubmit)="form.valid && saveFarm()" novalidate>
-        <p-toolbar styleClass="p-mb-4">
-            <ng-template pTemplate="left">
-                <button pButton label="Return" icon="pi pi-arrow-left" class="p-button-info" (click)="goBack()"></button>
+<h5 style="margin-left: 50%; font-size: 2em;">Farm Form</h5>
+<button pButton label="Return" icon="pi pi-arrow-left" class="p-button-info" (click)="goBack()"></button>
+<p-tabView styleClass="tabview-custom" (click)="getTotalSize()">
+    <p-tabPanel >
+            <ng-template pTemplate = "header">
+                <i class="pi pi-file"></i>
+                <span>Farm Detail</span>
             </ng-template>
-            <ng-template pTemplate="right">
-                <button pButton label="Save" icon="pi pi-save" class="p-button-success p-mr-2" [disabled]="!form.form.valid"></button>
-                <button pButton label="Cancel" icon="pi pi-times" class="p-button-danger" (click)="clean()" ></button>
-            </ng-template>
-        </p-toolbar>
-        <div class="p-fluid">
-            <div class="p-field p-grid">
-                <label for="inName" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">Name *</label>
-                <div class="p-col-12 p-md-8">
-                    <input id="inName" type="text" pInputText required [(ngModel)]="farm.name"
-                    name="nameFarm" required #nameFarm=ngModel placeholder="Farm´s name"
-                    maxlength="150"> 
+        <form #form="ngForm" (ngSubmit)="form.valid && saveFarm()" novalidate>
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <button pButton label="Save" icon="pi pi-save" class="p-button-success p-mr-2" [disabled]="!form.form.valid"></button>
+                </ng-template>
+            </p-toolbar>
+            <div class="p-fluid">
+                <div class="p-field p-grid">
+                    <label for="inName" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">Name *</label>
+                    <div class="p-col-12 p-md-8">
+                        <input id="inName" type="text" pInputText required [(ngModel)]="farm.name"
+                        name="nameFarm" required #nameFarm=ngModel placeholder="Farm´s name"
+                        maxlength="150"> 
+                    </div>
+                    <div class="p-col-2"
+                            *ngIf="nameFarm.errors && (nameFarm.dirty || nameFarm.touched && !form.form.controls.nameFarm?.valid)">
+                        <div [hidden]="!nameFarm.errors.required" style="color:red;">
+                            Name required
+                        </div>
+                    </div>
                 </div>
-                <div class="p-col-2"
-                        *ngIf="nameFarm.errors && (nameFarm.dirty || nameFarm.touched && !form.form.controls.nameFarm?.valid)">
-                    <div [hidden]="!nameFarm.errors.required" style="color:red;">
-                        Name required
+                <div class="p-field p-grid">
+                    <label for="location" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">Location</label>
+                    <div class="p-col-12 p-md-8">
+                        <input id="location" type="text" pInputText [(ngModel)]="farm.nameLocation"
+                        name="locationName" #locationName=ngModel placeholder="Farm´s location"
+                        maxlength="150"> 
+                    </div>
+                </div>
+                <div class="p-field p-grid">
+                    <label for="totalSize" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">Total size (has.)</label>
+                    <div class="p-col-12 p-md-8">
+                        <input id="totalSize" type="number" pInputText [(ngModel)]="farm.totalSize"
+                        name="totalSizeFarm" #totalSizeFarm=ngModel [disabled]="true"> 
                     </div>
                 </div>
             </div>
-            <div class="p-field p-grid">
-                <label for="location" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">Location</label>
-                <div class="p-col-12 p-md-8">
-                    <input id="location" type="text" pInputText [(ngModel)]="farm.nameLocation"
-                    name="locationName" #locationName=ngModel placeholder="Farm´s location"
-                    maxlength="150"> 
-                </div>
-            </div>
-            <div class="p-field p-grid">
-                <label for="totalSize" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">Total size (has.)</label>
-                <div class="p-col-12 p-md-8">
-                    <input id="totalSize" type="number" pInputText [(ngModel)]="farm.totalSize"
-                    name="totalSizeFarm" #totalSizeFarm=ngModel [disabled]="true"> 
-                </div>
-            </div>
-        </div>
-    </form>
-    <p-panel header="Ponds">
-        <app-pond [ponds]= "farm.ponds" (sendList)="getList($event)"></app-pond>
-    </p-panel>
-</div>
+        </form>
+    </p-tabPanel>
+    <p-tabPanel [disabled]="farm.id==null" (click)="getPonds()">
+        <ng-template pTemplate = "header">
+            <i class="pi pi-list"></i>
+            <span>Ponds</span>
+        </ng-template>
+        <app-pond [idFarm]= "farm.id" [ponds]= "farm.ponds"></app-pond>
+    </p-tabPanel>
+</p-tabView>

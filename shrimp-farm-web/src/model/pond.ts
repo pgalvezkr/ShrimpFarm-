@@ -11,7 +11,7 @@
  */
 
 
-export interface Pond { 
+export class Pond { 
     id?: string;
     name?: string;
     size?: number;

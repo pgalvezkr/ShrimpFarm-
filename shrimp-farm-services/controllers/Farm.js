@@ -15,8 +15,8 @@ module.exports.createFarm = function createFarm (req, res, next) {
 };
 
 module.exports.deleteFarm = function deleteFarm (req, res, next) {
-  var body = req.swagger.params['body'].value;
-  Farm.deleteFarm(body)
+  var idFarm = req.swagger.params['idFarm'].value;
+  Farm.deleteFarm(idFarm)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -24,6 +24,7 @@ module.exports.deleteFarm = function deleteFarm (req, res, next) {
       utils.writeJson(res, response);
     });
 };
+
 
 module.exports.getFarmById = function getFarmById (req, res, next) {
   var farmId = req.swagger.params['farmId'].value;

@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Farm, FarmService, ApiResponse } from 'src/api';
+import { ApiResponse, Farm, FarmService } from 'src/api';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
@@ -29,7 +29,6 @@ export class FarmListComponent implements OnInit {
     this.farmsService.getFarms().subscribe((resp: ApiResponse)=>{
       if (resp.code == 200) {
         this.farms = resp.data;
-        console.log("Tamaniot" +this.farms.length)
         this.last = this.farms.length;
     } else {
         this.farms = [];
@@ -49,7 +48,6 @@ export class FarmListComponent implements OnInit {
   }
 
   deleteSelectedFarms() {
-    console.log("ESTA EN EL ELIMINAR FARMS");
     this.displayDelete = true;
   }
   
@@ -59,22 +57,21 @@ export class FarmListComponent implements OnInit {
 
   deleteFarms() {
       this.selectedFarms.forEach(farm =>{
-        let farmDeleted = farm;
-        this.farmsService.deleteFarm(farmDeleted).subscribe((resp: ApiResponse)=>{
+        this.farmsService.deleteFarm(farm.id).subscribe((resp: ApiResponse)=>{
           if (resp.code == 200) {
-            this.messageService.add({key: 'msgsList', sticky: true, severity:'success', summary:'Info', detail: resp.message});
+            this.messageService.add({key: 'msgsList', sticky: true, severity:'success', summary:'Info', detail: "Farms removed successfully"});
             this.displayDelete = false;
+            this.loadFarms();
         } else {
-          this.messageService.add({key: 'msgsList', sticky: true, severity:'error', summary:'Error', detail: "Error ocurred and the farms was not deleted"});
+          this.messageService.add({key: 'msgsList', sticky: true, severity:'error', summary:'Error', detail: resp.message});
           this.displayDelete = false;
         }
         }, error=>{
-          this.messageService.add({key: 'msgsList', sticky: true, severity:'error', summary:'Error', detail: "Error ocurred on server"});
+          this.messageService.add({key: 'msgsList', sticky: true, severity:'error', summary:'Error', detail: "An error ocurred on server"});
           this.displayDelete = false;
         });   
-
       })
-      
+    this.selectedFarms = [] ;
   }
 
 }
