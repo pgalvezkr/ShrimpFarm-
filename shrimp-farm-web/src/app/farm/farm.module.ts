@@ -16,8 +16,7 @@ import { FarmComponent } from './farm/farm.component';
 import { FormsModule } from '@angular/forms';
 import { PondModule } from '../pond/pond.module';
 import { APIS, BASE_PATH } from 'src/api';
-import { MessageModule } from 'primeng/message';
-import { MessagesModule } from 'primeng/messages';
+import {TabViewModule} from 'primeng/tabview';
 
 @NgModule({
   declarations: [FarmListComponent, FarmFormComponent, FarmComponent],
@@ -32,8 +31,8 @@ import { MessagesModule } from 'primeng/messages';
     InputTextModule,
     DialogModule,
     PondModule,
-    ToastModule
-  ],
+    ToastModule,
+    TabViewModule  ],
   providers: [MessageService, ConfirmationService, APIS,  {provide:BASE_PATH, useValue:'/sfarm/v1'}, MessageService]
 
 })

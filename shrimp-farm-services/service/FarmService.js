@@ -1,5 +1,7 @@
 'use strict';
 
+const { updateFarm } = require("../controllers/Farm");
+
 
 /**
  * Management of farms
@@ -28,7 +30,7 @@ exports.createFarm = function(body) {
                 .collection("farms")
                 .add(farm);
       response.code = 200;
-      response.data = saveFarm;
+      response.data = saveFarm.id;
       response.message = "Farm saved succesfully"
       resolve(response);
     } catch (error) {
@@ -48,7 +50,7 @@ exports.createFarm = function(body) {
  * body Farm  (optional)
  * returns ApiResponse
  **/
-exports.deleteFarm = function(body) {
+exports.deleteFarm = function(idFarm) {
   return new Promise(async function(resolve, reject) {
     try{
       var response = {};
@@ -57,20 +59,9 @@ exports.deleteFarm = function(body) {
         "data" : "{}",
         "message" : "message"
       };
-      console.log(body);
-      let farm = {
-        id: body.id,
-        name: body.name,
-        totalSize: body.totalSize,
-        nameLocation: body.nameLocation,
-        latitude: body.latitude,
-        longitude: body.longitude,
-        ponds: body.ponds
-      };
-      console.log(farm);
       let deleteFarm = await global.firestoreDb
                 .collection("farms")
-                .doc(farm.id)
+                .doc(idFarm)
                 .delete()
       response.code = 200;
       response.data = deleteFarm;
@@ -87,6 +78,7 @@ exports.deleteFarm = function(body) {
 }
 
 
+
 /**
  * Find farm by id
  *
@@ -101,8 +93,6 @@ exports.getFarmById = function(farmId) {
         "data" : "{}",
         "message" : "message"
       };
-      //Consultar las granjas 
-      let farms = [];
       try {
         let collection = await global.firestoreDb
           .collection("farms")
@@ -164,7 +154,7 @@ exports.getFarms =function() {
       resolve(response);
     }
     catch (error) {
-        console.log("Error al consultar servicios ", error.message);
+        console.log("Error ", error.message);
         response.code = error.code;
         response.data = null;
         response.message=error.message;
@@ -189,25 +179,30 @@ exports.getTotalSize = function(farmId) {
         "message" : "message"
       };
       //Consultar las granjas 
-      let farms = [];
       let totalSize = 0;
       try {
         let collection = await global.firestoreDb
           .collection("farms")
           .doc(farmId)
           .get(); 
-        
         let farm = collection.data();
-        farm.ponds.forEach(function(pond){
-            totalSize = totalSize +pond.size;
-        });
-        response.code = '200';
-        response.data = totalSize;
-        response.message='Return total size of Farm';
+        if (farm.ponds!=undefined){
+          farm.ponds.forEach(function(pond){
+              totalSize = totalSize +pond.size;
+          });
+          response.code = '200';
+          response.data = totalSize;
+          response.message='Return total size of Farm';
+        }else{
+          response.code = '200';
+          response.data = 0;
+          response.message='Return total size of Farm';
+        }
+        farm.totalSize = totalSize;
         resolve(response);
     }
     catch (error) {
-        console.log("Error al consultar servicios ", error.message);
+        console.log("Error ", error.message);
         response.code = error.code;
         response.data = null;
         response.message=error.message;
@@ -233,8 +228,6 @@ exports.updateFarm = function(body) {
         "message" : "message"
       };
     try {
-
-      console.log(farm.id);
         let updated = await global.firestoreDb
             .collection("farms")
             .doc(farm.id)
@@ -248,7 +241,8 @@ exports.updateFarm = function(body) {
                     nameLocation: farm.nameLocation,
                     totalSize: farm.totalSize,
                     latitude: farm.latitude,
-                    longitude:farm.longitude
+                    longitude:farm.longitude,
+                    ponds: farm.ponds
                 });
             response.code = '201';
             response.data = updatedFinal;

@@ -4,8 +4,9 @@ var utils = require('../utils/writer.js');
 var Pond = require('../service/PondService');
 
 module.exports.createPond = function createPond (req, res, next) {
+  var idFarm = req.swagger.params['idFarm'].value;
   var body = req.swagger.params['body'].value;
-  Pond.createPond(body)
+  Pond.createPond(idFarm,body)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -15,8 +16,9 @@ module.exports.createPond = function createPond (req, res, next) {
 };
 
 module.exports.deletePond = function deletePond (req, res, next) {
-  var body = req.swagger.params['body'].value;
-  Pond.deletePond(body)
+  var idFarm = req.swagger.params['idFarm'].value;
+  var idPond = req.swagger.params['idPond'].value;
+  Pond.deletePond(idFarm,idPond)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -48,8 +50,9 @@ module.exports.getPondById = function getPondById (req, res, next) {
 };
 
 module.exports.updatePond = function updatePond (req, res, next) {
+  var idFarm = req.swagger.params['idFarm'].value;
   var body = req.swagger.params['body'].value;
-  Pond.updatePond(body)
+  Pond.updatePond(idFarm,body)
     .then(function (response) {
       utils.writeJson(res, response);
     })

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Farm, FarmService, ApiResponse } from 'src/api';
+import { FarmService, ApiResponse, PondService} from 'src/api';
+import {Farm} from 'src/model/models';
 import { Message, MessageService} from 'primeng/api';
-
 
 @Component({
   selector: 'app-farm-form',
@@ -9,82 +9,93 @@ import { Message, MessageService} from 'primeng/api';
   styleUrls: ['./farm-form.component.css']
 })
 export class FarmFormComponent implements OnInit {
-
   farm: Farm;
   @Input() selectedFarm: Farm;
   @Input() isNewFarm: boolean;
   @Output() sendList = new EventEmitter();
-  @Output() sendMesssage =new EventEmitter();
-  msgs: Message[];
-  
-  constructor(private farmsService: FarmService, private messageService: MessageService) {}
+  msgs: Message [];
+  constructor(private farmsService: FarmService, private messageService: MessageService, private pondService: PondService) {}
 
   ngOnInit(): void {
     this.msgs = [];
     if (this.isNewFarm){
-      this.farm = {};
-      this.farm.ponds= [];
+      this.farm = new Farm();
+      this.farm.totalSize = 0;
+      this.farm.ponds = [];
     }else{
       this.farm = this.selectedFarm;
+      this.getTotalSize();
     }
-    this.farm.latitude = 0;
-    this.farm.longitude = 0;
-    console.log("EL FARM QUE TENGO ES: " , this.farm);
   }
 
 
   public goBack() {
+    this.farmsService.updateFarm(this.farm).subscribe((resp: ApiResponse)=>{
+      if (resp.code==200){
+        console.log("Farm updated" , this.farm);
+     }else{
+       console.log("Error", resp.message);
+     }
+    });
     this.sendList.emit({ showForm: false, showList: true });
   }
 
   public getList(event) {
-    console.log("ESTA EN EL GET LIST");
     this.farm.ponds = event.ponds;
-    this.farm.totalSize = event.totalSize;
   }
 
- 
+  public getPonds (){
+    this.pondService.getPondByFarmid(this.farm.id).subscribe((resp: ApiResponse)=>{
+      if (resp.code==200){
+          this.farm.ponds = resp.data;
+       }else{
+         this.messageService.add({key: 'msgs', sticky: true, severity:'error', summary:'Error', detail: resp.message});
+         console.log(resp.data);
+       }
+   }, error=>{
+     console.log("An error ocurred on server.");
+     this.messageService.add({key: 'msgs', sticky: true, severity:'error', summary:'Error', detail: "An error ocurred on server"});
+   }); 
+  }
 
   public saveFarm (){
-      if (this.farm.ponds.length==0){
-        console.log("Please add minimun one pond to the farm.");
-        this.messageService.add({key: 'msgs', sticky: true, severity:'error', summary: 'Error', detail:'Please add minimun one pond to the farm.'});
-      }else{
-        console.log(this.farm);
         if (this.isNewFarm){
             this.farmsService.createFarm(this.farm).subscribe((resp: ApiResponse)=>{
-                console.log("Farm saved succesfully");
-                this.messageService.add({key: 'msgs', sticky: true, severity:'success', summary:'Info', detail: "Farm created succesffuly"});
+               if (resp.code==200){
+                  this.messageService.add({key: 'msgs', sticky: true, severity:'success', summary:'Info', detail: "Successfully created farm"});
+                  console.log(resp.data);
+                  this.farm.id = resp.data;
+                }else{
+                  this.messageService.add({key: 'msgs', sticky: true, severity:'error', summary:'Error', detail: resp.message});
+                  console.log(resp.data);
+                }
             }, error=>{
-              console.log("Error ocurred on server.");
-              this.messageService.add({key: 'msgs', sticky: true, severity:'error', summary:'Error', detail: "Error ocurred on server"});
-              }); 
-            
+              console.log("An error ocurred on server.");
+              this.messageService.add({key: 'msgs', sticky: true, severity:'error', summary:'Error', detail: "An error ocurred on server"});
+            }); 
         }else{
           this.farmsService.updateFarm(this.farm).subscribe((resp: ApiResponse)=>{
             console.log("Farm saved succesfully");
-            this.messageService.add({key: 'msgs', sticky: true, severity:'success', summary:'Info', detail: resp.message});
-        }, error=>{
-          console.log("Error ocurred on server.");
-          this.messageService.add({key: 'msgs', sticky: true, severity:'error', summary:'Error', detail: "Error ocurred on server"});
+            this.messageService.add({key: 'msgs', sticky: true, severity:'success', summary:'Info', detail: "Successfully updated farm"});
+          }, error=>{
+          console.log("An error ocurred on server.");
+          this.messageService.add({key: 'msgs', sticky: true, severity:'error', summary:'Error', detail: "An error ocurred on server"});
           }); 
-        } 
         }
-    this.sendMesssage.emit({msgs: this.msgs});
   }
 
   public getTotalSize (){
+    console.log("Esta en el total size");
+    if (this.farm.id!=null){
+      console.log("Va a solicitar el total size");
       this.farmsService.getTotalSize(this.farm.id).subscribe((resp: ApiResponse)=>{
         console.log("Total size: ");
         this.farm.totalSize = resp.data;
-     }, error=>{
-      console.log("Error ocurred on server.");
-      this.messageService.add({key: 'msgs', sticky: true, severity:'error', summary:'Error', detail: "Error ocurred on server to get total size"});
-      }); 
+      }, error=>{
+        console.log("An error ocurred on server.");
+        this.messageService.add({key: 'msgs', sticky: true, severity:'error', summary:'Error', detail: "An error ocurred on server to get total size"});
+        }); 
+    }
   }
 
-  public clean (){
-    console.log("ESTA EN EL LIMPIAR");
-    this.farm= {};
-  }
 }
